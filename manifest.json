@@ -1,0 +1,15 @@
+{
+  "name": "Stigen – Treningsutfordring",
+  "short_name": "Stigen",
+  "description": "Én rep mer for hver dag. Push-ups, sit-ups og knebøy, dag for dag.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16140F",
+  "theme_color": "#16140F",
+  "lang": "nb",
+  "icons": [
+    { "src": "./icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
