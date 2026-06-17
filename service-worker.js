@@ -1,4 +1,4 @@
-const CACHE = "stigen-v1";
+const CACHE = "plusone-v1";
 const ASSETS = ["./index.html", "./manifest.json", "./icon.png"];
 
 self.addEventListener("install", function (e) {
