@@ -1,4 +1,4 @@
-const CACHE = "plusone-v1";
+const CACHE = "plusone-v2";
 const ASSETS = ["./index.html", "./manifest.json", "./icon.png"];
 
 self.addEventListener("install", function (e) {

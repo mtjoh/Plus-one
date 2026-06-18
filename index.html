@@ -18,7 +18,7 @@
   --bg-top:#16140F; --bg-bot:#100E0A;
   --surface:#211C15; --surface-2:#1A1610; --border:#2E2820; --border-hi:#433A2D;
   --text:#F4EFE6; --muted:#A89E8E; --dim:#6E665A;
-  --green:#34D17E; --green-ink:#07140C; --green-tint:rgba(52,209,126,.10); --green-border:rgba(52,209,126,.40);
+  --green:#34D17E; --green-bright:#41DC8A; --green-ink:#07140C; --green-tint:rgba(52,209,126,.10); --green-border:rgba(52,209,126,.40);
   --amber:#F2A93C; --amber-tint:rgba(242,169,60,.12); --amber-border:rgba(242,169,60,.42);
   --font-display:'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -39,10 +39,14 @@ body{margin:0;background:var(--bg-bot);}
 .tc-wrap{max-width:480px;margin:0 auto;}
 
 .tc-head{margin:6px 2px 18px;}
+.tc-headrow{display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .tc-brand{display:flex;align-items:center;gap:9px;}
 .tc-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--amber-tint);color:var(--amber);}
 .tc-wordmark{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:.06em;text-transform:uppercase;}
 .tc-tag{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+.tc-gear{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--surface);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:color .18s,border-color .18s;}
+.tc-gear:hover{color:var(--text);border-color:var(--border-hi);}
+.tc-gear:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 
 .tc-active{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:22px 20px 20px;box-shadow:0 18px 40px -28px rgba(0,0,0,.9);animation:tcRise .4s ease both;overflow:hidden;}
 .tc-active::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--amber);opacity:.9;}
@@ -62,23 +66,35 @@ body{margin:0;background:var(--bg-bot);}
 .tc-ex:hover{border-color:var(--border-hi);}
 .tc-ex:active{transform:scale(.975);}
 .tc-ex:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.tc-ex-left{display:flex;align-items:center;gap:12px;}
+.tc-ex-left{display:flex;align-items:center;gap:12px;min-width:0;}
 .tc-ex-icon{display:grid;place-items:center;color:var(--muted);flex:none;}
-.tc-ex-name{font-weight:600;font-size:15.5px;}
-.tc-ex-right{display:flex;align-items:center;gap:12px;}
+.tc-ex-name{font-weight:600;font-size:15.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tc-ex-right{display:flex;align-items:center;gap:12px;flex:none;}
 .tc-ex-reps{font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--muted);font-variant-numeric:tabular-nums;}
 .tc-ex-state{width:26px;height:26px;border-radius:999px;border:2px solid #4A4234;display:grid;place-items:center;color:transparent;flex:none;transition:background .18s ease,border-color .18s ease,color .18s ease;}
 .tc-ex.is-done{background:var(--green);border-color:var(--green);color:var(--green-ink);animation:tcPop .26s ease;}
 .tc-ex.is-done .tc-ex-icon,.tc-ex.is-done .tc-ex-name,.tc-ex.is-done .tc-ex-reps{color:var(--green-ink);}
 .tc-ex.is-done .tc-ex-state{background:rgba(7,20,12,.18);border-color:var(--green-ink);color:var(--green-ink);}
 
-.tc-banner{display:flex;align-items:center;gap:11px;margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--green-tint);border:1px solid var(--green-border);color:var(--green);animation:tcRise .32s ease both;}
+.tc-complete{margin-top:14px;}
+.tc-banner{display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:14px;background:var(--green-tint);border:1px solid var(--green-border);color:var(--green);animation:tcRise .32s ease both;}
 .tc-banner-txt strong{display:block;font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text);}
 .tc-banner-txt span{display:block;font-size:12.5px;color:var(--muted);margin-top:1px;}
 .tc-banner svg{flex:none;}
-.tc-undo{margin-left:auto;flex:none;background:transparent;border:1px solid var(--green-border);color:var(--green);font-family:var(--font-body);font-weight:600;font-size:12.5px;padding:7px 12px;border-radius:9px;cursor:pointer;}
-.tc-undo:hover{background:rgba(52,209,126,.08);}
-.tc-undo:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+.tc-mood{margin-top:14px;}
+.tc-mood-q{display:block;font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.tc-faces{display:flex;gap:8px;}
+.tc-face{flex:1;min-height:46px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface-2);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:transform .14s ease,background .16s,border-color .16s;-webkit-tap-highlight-color:transparent;}
+.tc-face:active{transform:scale(.94);}
+.tc-face.selected{background:var(--green-tint);border-color:var(--green-border);transform:scale(1.04);}
+.tc-face:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.tc-commentinput{width:100%;margin-top:10px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--font-body);font-size:14.5px;padding:11px 13px;}
+.tc-commentinput::placeholder{color:var(--dim);}
+.tc-commentinput:focus{outline:none;border-color:var(--amber-border);}
+.tc-next{width:100%;margin-top:14px;background:var(--green);border:none;color:var(--green-ink);font-family:var(--font-display);font-weight:800;font-size:15.5px;padding:14px;border-radius:14px;cursor:pointer;transition:transform .14s ease,background .16s;}
+.tc-next:active{transform:scale(.985);}
+.tc-next:hover{background:var(--green-bright);}
+.tc-next:focus-visible{outline:2px solid var(--text);outline-offset:2px;}
 
 .tc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
 .tc-stat{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:14px 10px;text-align:center;}
@@ -92,35 +108,79 @@ body{margin:0;background:var(--bg-bot);}
 .tc-empty-sub{margin:6px 0 0;color:var(--muted);font-size:13px;}
 .tc-ladder{position:relative;padding-left:26px;}
 .tc-ladder::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--green-border),var(--border));}
-.tc-rung{position:relative;display:flex;align-items:center;padding:11px 0;}
-.tc-node{position:absolute;left:-23px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:999px;background:var(--green);box-shadow:0 0 0 3px var(--bg-top);}
+.tc-rung{position:relative;display:block;padding:11px 0;}
+.tc-node{position:absolute;left:-23px;top:18px;width:12px;height:12px;border-radius:999px;background:var(--green);box-shadow:0 0 0 3px var(--bg-top);}
 .tc-rung-main{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;}
 .tc-rung-left{display:flex;align-items:baseline;}
 .tc-rung-day{font-family:var(--font-display);font-weight:700;font-size:15.5px;}
 .tc-rung-reps{color:var(--dim);font-size:13px;margin-left:8px;font-weight:500;}
-.tc-chips{display:flex;gap:5px;}
-.tc-chip{display:inline-grid;place-items:center;min-width:24px;height:22px;padding:0 6px;border-radius:7px;background:var(--green-tint);border:1px solid var(--green-border);color:var(--green);font-size:11px;font-weight:700;}
+.tc-rung-right{display:flex;align-items:center;gap:8px;}
+.tc-rung-mood{font-size:19px;line-height:1;}
+.tc-rung-check{color:var(--green);display:grid;place-items:center;}
+.tc-rung-note{margin:5px 0 0;color:var(--muted);font-size:13px;font-style:italic;}
 
 .tc-foot{margin-top:30px;text-align:center;}
-.tc-reset{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:9px 14px;border-radius:11px;cursor:pointer;transition:border-color .18s,color .18s;}
+.tc-note{margin:0;font-size:11.5px;color:var(--dim);}
+
+.tc-overlay{display:none;position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,var(--bg-top),var(--bg-bot));overflow-y:auto;-webkit-overflow-scrolling:touch;padding-top:calc(18px + env(safe-area-inset-top));padding-bottom:calc(40px + env(safe-area-inset-bottom));padding-left:calc(16px + env(safe-area-inset-left));padding-right:calc(16px + env(safe-area-inset-right));}
+.tc-overlay.open{display:block;}
+.tc-sheet{max-width:480px;margin:0 auto;}
+.tc-sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.tc-sheet-head h2{font-family:var(--font-display);font-weight:800;font-size:22px;margin:0;}
+.tc-close{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--surface);border:1px solid var(--border);color:var(--muted);cursor:pointer;}
+.tc-close:hover{color:var(--text);border-color:var(--border-hi);}
+.tc-close:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.tc-field{margin-bottom:24px;}
+.tc-label{display:block;font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:6px;}
+.tc-help{margin:0 0 10px;color:var(--dim);font-size:12.5px;line-height:1.45;}
+.tc-input,.tc-select{width:100%;background:var(--surface-2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--font-body);font-size:15px;padding:12px 13px;}
+.tc-input::placeholder{color:var(--dim);}
+.tc-input:focus,.tc-select:focus{outline:none;border-color:var(--amber-border);}
+.tc-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A89E8E' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:38px;}
+.tc-actrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.tc-actrow .tc-select{flex:1 1 auto;min-width:0;}
+.tc-actrow.custom .tc-select{flex:1 1 calc(100% - 50px);}
+.tc-actrow .tc-custom{flex:1 1 100%;}
+.tc-actremove{flex:none;width:42px;height:42px;border-radius:11px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:grid;place-items:center;}
+.tc-actremove:hover:not(:disabled){color:#D5614A;border-color:var(--border-hi);}
+.tc-actremove:disabled{opacity:.4;cursor:default;}
+.tc-add{margin-top:4px;background:transparent;border:1px dashed var(--border);color:var(--muted);font-family:var(--font-body);font-size:13.5px;font-weight:500;padding:11px;border-radius:12px;cursor:pointer;width:100%;}
+.tc-add:hover{color:var(--text);border-color:var(--border-hi);}
+.tc-switchrow{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
+.tc-switchrow .tc-label{margin-bottom:4px;}
+.tc-switchrow .tc-help{margin-bottom:0;}
+.tc-switch{position:relative;flex:none;width:50px;height:30px;display:inline-block;margin-top:2px;}
+.tc-switch input{opacity:0;width:0;height:0;position:absolute;}
+.tc-slider{position:absolute;inset:0;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;transition:background .18s,border-color .18s;cursor:pointer;}
+.tc-slider::before{content:"";position:absolute;width:22px;height:22px;left:3px;top:50%;transform:translateY(-50%);background:var(--muted);border-radius:999px;transition:transform .18s,background .18s;}
+.tc-switch input:checked + .tc-slider{background:var(--green-tint);border-color:var(--green-border);}
+.tc-switch input:checked + .tc-slider::before{transform:translateY(-50%) translateX(20px);background:var(--green);}
+.tc-switch input:focus-visible + .tc-slider{outline:2px solid var(--amber);outline-offset:2px;}
+.tc-reset{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:13.5px;font-weight:500;padding:10px 14px;border-radius:11px;cursor:pointer;transition:border-color .18s,color .18s;}
 .tc-reset:hover{border-color:var(--border-hi);color:var(--text);}
 .tc-reset:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.tc-confirm{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;}
-.tc-confirm p{margin:0 0 12px;font-size:13.5px;color:var(--text);}
-.tc-confirm-row{display:flex;gap:8px;justify-content:center;}
-.tc-btn-danger{flex:1;max-width:160px;background:#C8553D;border:none;color:#fff;font-family:var(--font-body);font-weight:600;font-size:13.5px;padding:10px 14px;border-radius:11px;cursor:pointer;}
+.tc-confirm-inline{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.tc-confirm-inline p{margin:0 0 12px;font-size:13.5px;}
+.tc-confirm-row{display:flex;gap:8px;}
+.tc-btn-danger{flex:1;background:#C8553D;border:none;color:#fff;font-family:var(--font-body);font-weight:600;font-size:13.5px;padding:10px 14px;border-radius:11px;cursor:pointer;}
 .tc-btn-danger:hover{background:#D5614A;}
-.tc-btn-danger:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.tc-btn-ghost{flex:1;max-width:120px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-weight:500;font-size:13.5px;padding:10px 14px;border-radius:11px;cursor:pointer;}
+.tc-btn-ghost{flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-weight:500;font-size:13.5px;padding:10px 14px;border-radius:11px;cursor:pointer;}
 .tc-btn-ghost:hover{color:var(--text);border-color:var(--border-hi);}
-.tc-btn-ghost:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.tc-note{margin:14px 0 0;font-size:11.5px;color:var(--dim);}
+
+.tc-datesub{margin:6px 0 0;color:var(--amber);font-size:13px;font-weight:600;letter-spacing:.01em;}
+.is-celebrating .tc-datesub{color:var(--green);}
+.tc-rung-date{color:var(--dim);font-size:12.5px;margin-left:8px;font-weight:500;}
+.tc-inline-row{display:flex;gap:8px;}
+.tc-inline-row .tc-input{flex:1;min-width:0;}
+.tc-set{flex:none;background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-weight:600;font-size:14px;padding:0 16px;border-radius:12px;cursor:pointer;white-space:nowrap;}
+.tc-set:hover{border-color:var(--border-hi);}
+.tc-set:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 
 @keyframes tcRise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 @keyframes tcPop{0%{transform:scale(1);}45%{transform:scale(1.035);}100%{transform:scale(1);}}
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important;transition:none !important;}
-  .tc-ex:active{transform:none;}
+  .tc-ex:active,.tc-face:active,.tc-next:active{transform:none;}
 }
 </style>
 </head>
@@ -131,154 +191,328 @@ body{margin:0;background:var(--bg-bot);}
   "use strict";
 
   var KEY = "stigen-challenge-v1";
-  var EXERCISES = [
-    { key: "pushups", name: "Push-ups", short: "P", icon: "dumbbell" },
-    { key: "situps", name: "Sit-ups", short: "S", icon: "activity" },
-    { key: "squats", name: "Knebøy", short: "K", icon: "person" }
+  var PRESETS = ["Push-ups","Sit-ups","Knebøy","Burpees","Utfall","Planke","Jumping jacks","Russisk vri","Mountain climbers","Dips"];
+  var MOODS = [
+    { e: "😞", l: "Tungt" },
+    { e: "😕", l: "Sånn passe" },
+    { e: "😐", l: "Greit" },
+    { e: "🙂", l: "Bra" },
+    { e: "😄", l: "Kjempebra" }
   ];
-  var EMPTY = { pushups: false, situps: false, squats: false };
 
   var ICONS = {
     trending: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
     dumbbell: '<path d="M6 7v10M3.5 9.5v5M18 7v10M20.5 9.5v5M6 12h12"/>',
-    activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
-    person: '<circle cx="12" cy="4.5" r="1.6"/><path d="M9.5 20l2.5-6 2.5 6M6.5 9l5.5 1.8L17.5 9M12 10.8V14"/>',
     check: '<polyline points="20 6 9 17 4 12"/>',
     trophy: '<path d="M8 21h8M12 17v4M6 4h12v4a6 6 0 0 1-12 0V4z"/><path d="M6 6H3.5v1.5A3.5 3.5 0 0 0 7 11M18 6h2.5v1.5A3.5 3.5 0 0 1 17 11"/>',
-    reset: '<polyline points="2 5 2 11 8 11"/><path d="M3.2 15a9 9 0 1 0 2.2-9.4L2 11"/>'
+    gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+    x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    reset: '<polyline points="2 5 2 11 8 11"/><path d="M3.2 15a9 9 0 1 0 2.2-9.4L2 11"/>',
+    trash: '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>'
   };
   function svg(name, size, sw) {
     return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size +
       '" fill="none" stroke="currentColor" stroke-width="' + (sw || 2.2) +
       '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + '</svg>';
   }
-
-  var state = { days: {} };
-  try {
-    var raw = localStorage.getItem(KEY);
-    if (raw) { var p = JSON.parse(raw); if (p && p.days) state = p; }
-  } catch (e) {}
-
-  var celebrate = null;     // { day, ex } or null
-  var confirmReset = false;
-  var timer = null;
-
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
-  function dayDone(o) { return !!(o && o.pushups && o.situps && o.squats); }
-  function getDay(d) { return state.days[d] || EMPTY; }
-  function currentDay() { var d = 1; while (dayDone(state.days[d])) d++; return d; }
-  function totalReps() {
-    var s = 0;
-    for (var k in state.days) {
-      if (!Object.prototype.hasOwnProperty.call(state.days, k)) continue;
-      var v = state.days[k], n = +k;
-      if (v.pushups) s += n; if (v.situps) s += n; if (v.squats) s += n;
-    }
-    return s;
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
   function fmt(n) { try { return n.toLocaleString("nb-NO"); } catch (e) { return "" + n; } }
-  function displayDay() { return celebrate ? celebrate.day : currentDay(); }
-  function doneCountFor(d) {
-    var o = getDay(d), c = 0;
-    for (var i = 0; i < EXERCISES.length; i++) if (o[EXERCISES[i].key]) c++;
-    return c;
+  function uid() { return "act_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+  function defaultActivities() {
+    return [{ id: "pushups", name: "Push-ups" }, { id: "situps", name: "Sit-ups" }, { id: "squats", name: "Knebøy" }];
+  }
+  function defaultState() {
+    return { username: "", startDate: "", settings: { moodEnabled: true, notifyEnabled: false }, activities: defaultActivities(), days: {} };
   }
 
+  var state = defaultState();
+  var pinnedDay = null;
+  var settingsOpen = false;
+  var confirmReset = false;
+
+  function activitiesAllDone(d) {
+    if (!state.activities.length) return false;
+    for (var i = 0; i < state.activities.length; i++) {
+      if (!d.done[state.activities[i].id]) return false;
+    }
+    return true;
+  }
+  function recomputeSticky() {
+    for (var k in state.days) {
+      if (!Object.prototype.hasOwnProperty.call(state.days, k)) continue;
+      var d = state.days[k];
+      if (!d.complete && activitiesAllDone(d)) d.complete = true;
+    }
+  }
+
+  function load() {
+    var s = defaultState();
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === "object") {
+          if (typeof p.username === "string") s.username = p.username;
+          if (typeof p.startDate === "string") s.startDate = p.startDate;
+          if (p.settings && typeof p.settings.moodEnabled === "boolean") s.settings.moodEnabled = p.settings.moodEnabled;
+          if (p.settings && typeof p.settings.notifyEnabled === "boolean") s.settings.notifyEnabled = p.settings.notifyEnabled;
+          if (Array.isArray(p.activities) && p.activities.length) {
+            var acts = [];
+            for (var i = 0; i < p.activities.length; i++) {
+              var a = p.activities[i];
+              if (a && a.id) acts.push({ id: String(a.id), name: String(a.name || "") });
+            }
+            if (acts.length) s.activities = acts;
+          }
+          if (p.days && typeof p.days === "object") {
+            s.days = {};
+            for (var k in p.days) {
+              if (!Object.prototype.hasOwnProperty.call(p.days, k)) continue;
+              var dd = p.days[k] || {};
+              var done = {};
+              var complete = false;
+              if (dd.done && typeof dd.done === "object") {
+                for (var id in dd.done) { if (dd.done[id]) done[id] = true; }
+                complete = !!dd.complete;
+              } else {
+                for (var ok in dd) { if (ok !== "mood" && ok !== "note" && dd[ok] === true) done[ok] = true; }
+                complete = !!(done.pushups && done.situps && done.squats);
+              }
+              s.days[k] = { done: done, complete: complete, mood: (dd.mood || null), note: (typeof dd.note === "string" ? dd.note : "") };
+            }
+          }
+        }
+      }
+    } catch (e) {}
+    state = s;
+    recomputeSticky();
+  }
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function ensureDay(day) {
+    if (!state.days[day]) state.days[day] = { done: {}, complete: false, mood: null, note: "" };
+    return state.days[day];
+  }
+  function currentDay() { var d = 1; while (state.days[d] && state.days[d].complete) d++; return d; }
+  function displayDay() { return pinnedDay !== null ? pinnedDay : currentDay(); }
+  function totalReps() {
+    var sum = 0;
+    for (var k in state.days) {
+      if (!Object.prototype.hasOwnProperty.call(state.days, k)) continue;
+      var d = state.days[k], n = +k;
+      for (var id in d.done) { if (d.done[id]) sum += n; }
+    }
+    return sum;
+  }
+  function isCustom(name) { return PRESETS.indexOf(name) === -1; }
+
+  function dayDate(n) {
+    if (!state.startDate) return null;
+    var base = new Date(state.startDate + "T00:00:00");
+    if (isNaN(base.getTime())) return null;
+    base.setDate(base.getDate() + (n - 1));
+    return base;
+  }
+  function fmtDateLong(d) {
+    try {
+      var s = d.toLocaleDateString("nb-NO", { weekday: "long", day: "numeric", month: "long" });
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    } catch (e) { return d.toLocaleDateString(); }
+  }
+  function fmtDateShort(d) {
+    try { return d.toLocaleDateString("nb-NO", { weekday: "short", day: "numeric", month: "short" }); }
+    catch (e) { return d.toLocaleDateString(); }
+  }
+  function todayIndex() {
+    if (!state.startDate) return null;
+    var base = new Date(state.startDate + "T00:00:00");
+    if (isNaN(base.getTime())) return null;
+    var now = new Date();
+    var t = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return Math.round((t - base) / 86400000) + 1;
+  }
+  function overdueCount() {
+    var ti = todayIndex();
+    if (ti === null) return 0;
+    var cur = currentDay();
+    return ti < cur ? 0 : (ti - cur + 1);
+  }
+  function updateBadge() {
+    if (!("setAppBadge" in navigator)) return;
+    try {
+      if (state.settings.notifyEnabled) {
+        var n = overdueCount();
+        if (n > 0) navigator.setAppBadge(n);
+        else navigator.clearAppBadge();
+      } else {
+        navigator.clearAppBadge();
+      }
+    } catch (e) {}
+  }
+
+  load();
+
   var app = document.getElementById("app");
-
-  var buttonsHtml = "";
-  EXERCISES.forEach(function (e) {
-    buttonsHtml +=
-      '<button class="tc-ex" type="button" data-ex="' + e.key + '" aria-pressed="false">' +
-        '<span class="tc-ex-left"><span class="tc-ex-icon">' + svg(e.icon, 20) + '</span>' +
-        '<span class="tc-ex-name">' + e.name + '</span></span>' +
-        '<span class="tc-ex-right"><span class="tc-ex-reps">1</span>' +
-        '<span class="tc-ex-state">' + svg("check", 16, 3) + '</span></span>' +
-      '</button>';
-  });
-
   app.innerHTML =
     '<div class="tc-wrap">' +
-      '<header class="tc-head">' +
-        '<div class="tc-brand"><span class="tc-mark">' + svg("trending", 18, 2.5) + '</span>' +
-        '<span class="tc-wordmark">Plus One</span></div>' +
-        '<p class="tc-tag">Én rep mer for hver dag.</p>' +
-      '</header>' +
-      '<section class="tc-active" id="active" aria-live="polite">' +
-        '<span class="tc-pill" id="pill">I dag</span>' +
-        '<div class="tc-daylabel">Dag</div>' +
-        '<div class="tc-daynum" id="daynum">1</div>' +
-        '<p class="tc-daysub" id="daysub">1 reps av hver øvelse</p>' +
-        '<div class="tc-progress" id="progress">0 / 3 fullført</div>' +
-        '<div class="tc-buttons" id="buttons">' + buttonsHtml + '</div>' +
-        '<div id="bannerHost"></div>' +
-      '</section>' +
-      '<div class="tc-stats">' +
-        '<div class="tc-stat"><span class="tc-stat-val" id="statDays">0</span><span class="tc-stat-lab">Fullførte dager</span></div>' +
-        '<div class="tc-stat"><span class="tc-stat-val" id="statToday">0</span><span class="tc-stat-lab">Reps i dag</span></div>' +
-        '<div class="tc-stat"><span class="tc-stat-val" id="statTotal">0</span><span class="tc-stat-lab">Reps totalt</span></div>' +
-      '</div>' +
+      '<div id="headerHost"></div>' +
+      '<div id="activeHost"></div>' +
+      '<div id="statsHost"></div>' +
       '<section class="tc-history"><h2 class="tc-h2">Tidligere dager</h2><div id="historyHost"></div></section>' +
-      '<footer class="tc-foot"><div id="footerHost"></div>' +
-      '<p class="tc-note">Fremgangen lagres på denne enheten.</p></footer>' +
-    '</div>';
+      '<footer class="tc-foot"><p class="tc-note">Fremgangen lagres på denne enheten.</p></footer>' +
+    '</div>' +
+    '<div id="settingsHost" class="tc-overlay"></div>';
 
-  var pill = document.getElementById("pill");
-  var active = document.getElementById("active");
-  var daynum = document.getElementById("daynum");
-  var daysub = document.getElementById("daysub");
-  var progress = document.getElementById("progress");
-  var bannerHost = document.getElementById("bannerHost");
-  var statDays = document.getElementById("statDays");
-  var statToday = document.getElementById("statToday");
-  var statTotal = document.getElementById("statTotal");
+  var headerHost = document.getElementById("headerHost");
+  var activeHost = document.getElementById("activeHost");
+  var statsHost = document.getElementById("statsHost");
   var historyHost = document.getElementById("historyHost");
-  var footerHost = document.getElementById("footerHost");
+  var settingsHost = document.getElementById("settingsHost");
 
-  var buttonEls = {};
-  EXERCISES.forEach(function (e) {
-    buttonEls[e.key] = document.querySelector('.tc-ex[data-ex="' + e.key + '"]');
-    buttonEls[e.key].addEventListener("click", function () {
-      if (celebrate) return; // locked briefly during the completion moment
-      toggle(displayDay(), e.key);
-    });
-  });
+  function renderHeader() {
+    var greeting = state.username ? "Hei, " + esc(state.username) + " 👋" : "Én rep mer for hver dag.";
+    headerHost.innerHTML =
+      '<header class="tc-head">' +
+        '<div class="tc-headrow">' +
+          '<div class="tc-brand"><span class="tc-mark">' + svg("trending", 18, 2.5) + '</span>' +
+          '<span class="tc-wordmark">Plus One</span></div>' +
+          '<button class="tc-gear" type="button" id="gearBtn" aria-label="Innstillinger">' + svg("gear", 19, 2) + '</button>' +
+        '</div>' +
+        '<p class="tc-tag">' + greeting + '</p>' +
+      '</header>';
+    document.getElementById("gearBtn").addEventListener("click", openSettings);
+  }
 
   function renderActive() {
     var dd = displayDay();
-    var obj = getDay(dd);
-    var done = doneCountFor(dd);
-    pill.textContent = celebrate ? "Fullført" : "I dag";
-    active.classList.toggle("is-celebrating", !!celebrate);
-    daynum.textContent = dd;
-    daysub.textContent = dd + " reps av hver øvelse";
-    progress.textContent = done + " / 3 fullført";
-    progress.classList.toggle("done", done === 3);
-    EXERCISES.forEach(function (e) {
-      var btn = buttonEls[e.key];
-      var isDone = !!obj[e.key];
-      btn.classList.toggle("is-done", isDone);
-      btn.setAttribute("aria-pressed", isDone ? "true" : "false");
-      btn.setAttribute("aria-label", e.name + ", " + dd + " reps, " + (isDone ? "fullført" : "ikke fullført"));
-      btn.querySelector(".tc-ex-reps").textContent = dd;
+    var d = state.days[dd] || { done: {}, complete: false, mood: null, note: "" };
+    var dObj = dayDate(dd);
+    var dateLine = dObj ? '<p class="tc-datesub">' + esc(fmtDateLong(dObj)) + '</p>' : '';
+    var total = state.activities.length;
+    var doneCount = 0;
+    for (var i = 0; i < state.activities.length; i++) { if (d.done[state.activities[i].id]) doneCount++; }
+    var isComplete = (pinnedDay !== null);
+
+    var buttons = "";
+    state.activities.forEach(function (a) {
+      var done = !!d.done[a.id];
+      var nm = a.name && a.name.trim() ? a.name : "Øvelse";
+      buttons +=
+        '<button class="tc-ex' + (done ? ' is-done' : '') + '" type="button" data-act="' + esc(a.id) +
+          '" aria-pressed="' + (done ? 'true' : 'false') + '" aria-label="' + esc(nm) + ', ' + dd + ' reps, ' + (done ? 'fullført' : 'ikke fullført') + '">' +
+          '<span class="tc-ex-left"><span class="tc-ex-icon">' + svg("dumbbell", 20) + '</span><span class="tc-ex-name">' + esc(nm) + '</span></span>' +
+          '<span class="tc-ex-right"><span class="tc-ex-reps">' + dd + '</span><span class="tc-ex-state">' + svg("check", 16, 3) + '</span></span>' +
+        '</button>';
     });
-    if (celebrate) {
-      bannerHost.innerHTML =
-        '<div class="tc-banner">' + svg("trophy", 20) +
-        '<span class="tc-banner-txt"><strong>Dag ' + celebrate.day + ' fullført!</strong>' +
-        '<span>Dag ' + (celebrate.day + 1) + ' er åpnet</span></span>' +
-        '<button class="tc-undo" type="button" id="undoBtn">Angre</button></div>';
-      document.getElementById("undoBtn").addEventListener("click", undo);
-    } else {
-      bannerHost.innerHTML = "";
+
+    var complete = "";
+    if (isComplete) {
+      var moodHtml = "";
+      if (state.settings.moodEnabled) {
+        var faces = "";
+        MOODS.forEach(function (m) {
+          var on = d.mood === m.e;
+          faces += '<button class="tc-face' + (on ? ' selected' : '') + '" type="button" data-mood="' + m.e +
+            '" aria-label="' + esc(m.l) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + m.e + '</button>';
+        });
+        moodHtml =
+          '<div class="tc-mood">' +
+            '<span class="tc-mood-q">Hvordan føltes økten?</span>' +
+            '<div class="tc-faces">' + faces + '</div>' +
+            '<input class="tc-commentinput" id="noteInput" type="text" maxlength="140" placeholder="Skriv en kommentar (valgfritt)" value="' + esc(d.note) + '">' +
+          '</div>';
+      }
+      complete =
+        '<div class="tc-complete">' +
+          '<div class="tc-banner">' + svg("trophy", 20) +
+            '<span class="tc-banner-txt"><strong>Dag ' + dd + ' fullført!</strong>' +
+            '<span>' + (state.settings.moodEnabled ? 'Logg gjerne hvordan det gikk' : 'Bra jobba!') + '</span></span></div>' +
+          moodHtml +
+          '<button class="tc-next" type="button" id="nextBtn">Neste dag →</button>' +
+        '</div>';
     }
+
+    activeHost.innerHTML =
+      '<section class="tc-active' + (isComplete ? ' is-celebrating' : '') + '" aria-live="polite">' +
+        '<span class="tc-pill">' + (isComplete ? 'Fullført' : 'I dag') + '</span>' +
+        '<div class="tc-daylabel">Dag</div>' +
+        '<div class="tc-daynum">' + dd + '</div>' +
+        '<p class="tc-daysub">' + dd + ' reps av hver øvelse</p>' +
+        dateLine +
+        '<div class="tc-progress' + (doneCount === total && total > 0 ? ' done' : '') + '">' + doneCount + ' / ' + total + ' fullført</div>' +
+        '<div class="tc-buttons">' + buttons + '</div>' +
+        complete +
+      '</section>';
+
+    var btns = activeHost.querySelectorAll(".tc-ex");
+    Array.prototype.forEach.call(btns, function (btn) {
+      btn.addEventListener("click", function () { toggle(dd, btn.getAttribute("data-act")); });
+    });
+    if (isComplete) {
+      if (state.settings.moodEnabled) {
+        var faceBtns = activeHost.querySelectorAll(".tc-face");
+        Array.prototype.forEach.call(faceBtns, function (fb) {
+          fb.addEventListener("click", function () { selectMood(dd, fb.getAttribute("data-mood"), faceBtns); });
+        });
+        var note = document.getElementById("noteInput");
+        if (note) note.addEventListener("input", function () { ensureDay(dd).note = note.value; save(); });
+      }
+      var nb = document.getElementById("nextBtn");
+      if (nb) nb.addEventListener("click", function () { pinnedDay = null; renderAll(); });
+    }
+  }
+
+  function selectMood(day, emoji, faceBtns) {
+    var d = ensureDay(day);
+    d.mood = (d.mood === emoji ? null : emoji);
+    save();
+    Array.prototype.forEach.call(faceBtns, function (fb) {
+      var on = fb.getAttribute("data-mood") === d.mood;
+      fb.classList.toggle("selected", on);
+      fb.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function toggle(day, actId) {
+    var d = ensureDay(day);
+    d.done[actId] = !d.done[actId];
+    var allDone = activitiesAllDone(d);
+    var was = d.complete;
+    d.complete = allDone;
+    if (allDone && !was) { pinnedDay = day; }
+    else if (!allDone && was) { if (pinnedDay === day) pinnedDay = null; }
+    save();
+    renderAll();
+  }
+
+  function setCurrentDay(target) {
+    target = Math.max(1, parseInt(target, 10) || 1);
+    for (var k = 1; k < target; k++) {
+      var d = ensureDay(k);
+      state.activities.forEach(function (a) { d.done[a.id] = true; });
+      d.complete = true;
+    }
+    var t = ensureDay(target);
+    t.done = {};
+    t.complete = false;
+    pinnedDay = null;
   }
 
   function renderStats() {
     var dd = displayDay();
-    statDays.textContent = fmt(currentDay() - 1);
-    statToday.textContent = fmt(doneCountFor(dd) * dd);
-    statTotal.textContent = fmt(totalReps());
+    var d = state.days[dd] || { done: {} };
+    var doneCount = 0;
+    for (var i = 0; i < state.activities.length; i++) { if (d.done[state.activities[i].id]) doneCount++; }
+    statsHost.innerHTML =
+      '<div class="tc-stats">' +
+        '<div class="tc-stat"><span class="tc-stat-val">' + fmt(currentDay() - 1) + '</span><span class="tc-stat-lab">Fullførte dager</span></div>' +
+        '<div class="tc-stat"><span class="tc-stat-val">' + fmt(doneCount * dd) + '</span><span class="tc-stat-lab">Reps i dag</span></div>' +
+        '<div class="tc-stat"><span class="tc-stat-val">' + fmt(totalReps()) + '</span><span class="tc-stat-lab">Reps totalt</span></div>' +
+      '</div>';
   }
 
   function renderHistory() {
@@ -289,83 +523,189 @@ body{margin:0;background:var(--bg-bot);}
         '<p class="tc-empty-sub">Trykk deg gjennom dag 1 for å åpne dag 2.</p></div>';
       return;
     }
-    var chips = "";
-    EXERCISES.forEach(function (e) { chips += '<span class="tc-chip">' + e.short + '</span>'; });
     var html = '<div class="tc-ladder" role="list">';
     for (var k = dd - 1; k >= 1; k--) {
+      var d = state.days[k] || { done: {}, mood: null, note: "" };
+      var right = (state.settings.moodEnabled && d.mood)
+        ? '<span class="tc-rung-mood">' + d.mood + '</span>'
+        : '<span class="tc-rung-check">' + svg("check", 16, 3) + '</span>';
+      var note = (state.settings.moodEnabled && d.note)
+        ? '<p class="tc-rung-note">' + esc(d.note) + '</p>' : '';
+      var hd = dayDate(k);
+      var dateChip = hd ? '<span class="tc-rung-date">' + esc(fmtDateShort(hd)) + '</span>' : '';
       html +=
         '<div class="tc-rung" role="listitem" aria-label="Dag ' + k + ', fullført, ' + k + ' reps av hver øvelse">' +
           '<span class="tc-node"></span>' +
-          '<div class="tc-rung-main"><span class="tc-rung-left">' +
-          '<span class="tc-rung-day">Dag ' + k + '</span>' +
+          '<div class="tc-rung-main"><span class="tc-rung-left"><span class="tc-rung-day">Dag ' + k + '</span>' +
+          dateChip +
           '<span class="tc-rung-reps">' + k + ' reps</span></span>' +
-          '<span class="tc-chips" aria-hidden="true">' + chips + '</span></div>' +
+          '<span class="tc-rung-right">' + right + '</span></div>' +
+          note +
         '</div>';
     }
     html += '</div>';
     historyHost.innerHTML = html;
   }
 
-  function renderFooter() {
-    if (confirmReset) {
-      footerHost.innerHTML =
-        '<div class="tc-confirm"><p>Dette sletter all fremgang. Er du sikker?</p>' +
+  function openSettings() { settingsOpen = true; confirmReset = false; renderSettings(); settingsHost.classList.add("open"); }
+  function closeSettings() { settingsOpen = false; settingsHost.classList.remove("open"); renderAll(); }
+
+  function enableNotifications(toggleEl) {
+    if (!("Notification" in window)) { state.settings.notifyEnabled = true; save(); updateBadge(); return; }
+    if (Notification.permission === "granted") { state.settings.notifyEnabled = true; save(); updateBadge(); return; }
+    if (Notification.permission === "denied") {
+      state.settings.notifyEnabled = false; if (toggleEl) toggleEl.checked = false; save();
+      alert("Varsler er blokkert. Gå til Innstillinger → Plus One → Varslinger på iPhone for å tillate det.");
+      return;
+    }
+    Notification.requestPermission().then(function (perm) {
+      if (perm === "granted") { state.settings.notifyEnabled = true; save(); updateBadge(); }
+      else { state.settings.notifyEnabled = false; if (toggleEl) toggleEl.checked = false; save(); }
+    }).catch(function () { state.settings.notifyEnabled = true; save(); updateBadge(); });
+  }
+
+  function renderSettings() {
+    if (!settingsOpen) { settingsHost.innerHTML = ""; return; }
+    var rows = "";
+    state.activities.forEach(function (a, idx) {
+      var custom = isCustom(a.name);
+      var opts = "";
+      PRESETS.forEach(function (p) {
+        opts += '<option value="' + esc(p) + '"' + (!custom && a.name === p ? ' selected' : '') + '>' + esc(p) + '</option>';
+      });
+      opts += '<option value="__custom__"' + (custom ? ' selected' : '') + '>Skriv inn selv…</option>';
+      rows +=
+        '<div class="tc-actrow' + (custom ? ' custom' : '') + '">' +
+          '<select class="tc-select" data-i="' + idx + '">' + opts + '</select>' +
+          (custom ? '<input class="tc-input tc-custom" data-i="' + idx + '" type="text" maxlength="30" placeholder="Navn på øvelse" value="' + esc(a.name) + '">' : '') +
+          '<button class="tc-actremove" type="button" data-i="' + idx + '"' + (state.activities.length <= 1 ? ' disabled' : '') + ' aria-label="Fjern øvelse">' + svg("trash", 17, 2) + '</button>' +
+        '</div>';
+    });
+    var addBtn = state.activities.length < 6 ? '<button class="tc-add" type="button" id="addActBtn">+ Legg til øvelse</button>' : '';
+
+    var resetBlock = confirmReset
+      ? '<div class="tc-confirm-inline"><p>Dette sletter alle fullførte dager. Øvelser og navn beholdes. Er du sikker?</p>' +
         '<div class="tc-confirm-row"><button class="tc-btn-danger" type="button" id="resetYes">Ja, nullstill</button>' +
-        '<button class="tc-btn-ghost" type="button" id="resetNo">Avbryt</button></div></div>';
-      document.getElementById("resetYes").addEventListener("click", resetAll);
-      document.getElementById("resetNo").addEventListener("click", function () { confirmReset = false; renderFooter(); });
+        '<button class="tc-btn-ghost" type="button" id="resetNo">Avbryt</button></div></div>'
+      : '<button class="tc-reset" type="button" id="resetBtn">' + svg("reset", 14) + ' Nullstill fremgang</button>' +
+        '<p class="tc-help" style="margin-top:8px;">Sletter alle fullførte dager. Øvelser og navn beholdes.</p>';
+
+    settingsHost.innerHTML =
+      '<div class="tc-sheet">' +
+        '<div class="tc-sheet-head"><h2>Innstillinger</h2>' +
+          '<button class="tc-close" type="button" id="closeBtn" aria-label="Lukk">' + svg("x", 20, 2.4) + '</button></div>' +
+        '<div class="tc-sheet-body">' +
+          '<div class="tc-field"><label class="tc-label" for="userInput">Brukernavn</label>' +
+            '<input class="tc-input" id="userInput" type="text" maxlength="30" placeholder="Skriv inn navnet ditt" value="' + esc(state.username) + '"></div>' +
+          '<div class="tc-field"><span class="tc-label">Treningsøvelser</span>' +
+            '<p class="tc-help">Velg fra listen, eller velg «Skriv inn selv…» for egne øvelser.</p>' +
+            '<div id="actList">' + rows + '</div>' + addBtn + '</div>' +
+          '<div class="tc-field"><label class="tc-label" for="startInput">Startdato (dag 1)</label>' +
+            '<p class="tc-help">Velg datoen du startet på. Da får hver dag sin egen kalenderdato – helger inkludert.</p>' +
+            '<input class="tc-input" id="startInput" type="date" value="' + esc(state.startDate) + '"></div>' +
+          '<div class="tc-field"><label class="tc-label" for="jumpInput">Sett gjeldende dag</label>' +
+            '<p class="tc-help">Hopp til en bestemt dag. Dagene før blir markert som fullført. Nyttig hvis noe blir feil.</p>' +
+            '<div class="tc-inline-row"><input class="tc-input" id="jumpInput" type="number" min="1" inputmode="numeric" placeholder="F.eks. 25"><button class="tc-set" type="button" id="jumpBtn">Sett dag</button></div></div>' +
+          '<div class="tc-field tc-switchrow"><div><span class="tc-label">Humør og kommentar</span>' +
+            '<p class="tc-help">Vis smilefjes og kommentarfelt når du fullfører en dag.</p></div>' +
+            '<label class="tc-switch"><input type="checkbox" id="moodToggle"' + (state.settings.moodEnabled ? ' checked' : '') + '><span class="tc-slider"></span></label></div>' +
+          '<div class="tc-field tc-switchrow"><div><span class="tc-label">Varsler</span>' +
+            '<p class="tc-help">Rødt tall på app-ikonet når du har dager å ta igjen. Krever startdato og at du tillater varsler. Virker på iPhone (iOS 16.4+), og oppdateres når du åpner appen.</p></div>' +
+            '<label class="tc-switch"><input type="checkbox" id="notifyToggle"' + (state.settings.notifyEnabled ? ' checked' : '') + '><span class="tc-slider"></span></label></div>' +
+          '<div class="tc-field">' + resetBlock + '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById("closeBtn").addEventListener("click", closeSettings);
+
+    var userInput = document.getElementById("userInput");
+    userInput.addEventListener("input", function () { state.username = userInput.value; save(); renderHeader(); });
+
+    var selects = settingsHost.querySelectorAll(".tc-select");
+    Array.prototype.forEach.call(selects, function (sel) {
+      sel.addEventListener("change", function () {
+        var i = +sel.getAttribute("data-i");
+        if (sel.value === "__custom__") { state.activities[i].name = ""; }
+        else { state.activities[i].name = sel.value; }
+        save();
+        renderSettings();
+        if (sel.value === "__custom__") {
+          var ci = settingsHost.querySelector('.tc-custom[data-i="' + i + '"]');
+          if (ci) ci.focus();
+        }
+      });
+    });
+
+    var customs = settingsHost.querySelectorAll(".tc-custom");
+    Array.prototype.forEach.call(customs, function (ci) {
+      ci.addEventListener("input", function () { var i = +ci.getAttribute("data-i"); state.activities[i].name = ci.value; save(); });
+    });
+
+    var removes = settingsHost.querySelectorAll(".tc-actremove");
+    Array.prototype.forEach.call(removes, function (rb) {
+      rb.addEventListener("click", function () {
+        if (state.activities.length <= 1) return;
+        var i = +rb.getAttribute("data-i");
+        state.activities.splice(i, 1);
+        pinnedDay = null;
+        recomputeSticky();
+        save();
+        renderSettings();
+      });
+    });
+
+    var addBtnEl = document.getElementById("addActBtn");
+    if (addBtnEl) addBtnEl.addEventListener("click", function () {
+      var used = {};
+      state.activities.forEach(function (a) { used[a.name] = true; });
+      var def = "Burpees";
+      for (var i = 0; i < PRESETS.length; i++) { if (!used[PRESETS[i]]) { def = PRESETS[i]; break; } }
+      state.activities.push({ id: uid(), name: def });
+      pinnedDay = null;
+      save();
+      renderSettings();
+    });
+
+    var moodToggle = document.getElementById("moodToggle");
+    moodToggle.addEventListener("change", function () { state.settings.moodEnabled = moodToggle.checked; save(); });
+
+    var startInput = document.getElementById("startInput");
+    startInput.addEventListener("change", function () { state.startDate = startInput.value; save(); updateBadge(); });
+
+    var jumpBtn = document.getElementById("jumpBtn");
+    jumpBtn.addEventListener("click", function () {
+      var v = parseInt(document.getElementById("jumpInput").value, 10);
+      if (!v || v < 1) return;
+      setCurrentDay(v);
+      save();
+      renderActive(); renderStats(); renderHistory(); updateBadge();
+      jumpBtn.textContent = "Satt ✓";
+      setTimeout(function () { jumpBtn.textContent = "Sett dag"; }, 1500);
+    });
+
+    var notifyToggle = document.getElementById("notifyToggle");
+    notifyToggle.addEventListener("change", function () {
+      if (notifyToggle.checked) { enableNotifications(notifyToggle); }
+      else { state.settings.notifyEnabled = false; save(); updateBadge(); }
+    });
+
+    if (confirmReset) {
+      document.getElementById("resetYes").addEventListener("click", function () {
+        state.days = {}; pinnedDay = null; confirmReset = false; save(); renderSettings(); renderAll();
+      });
+      document.getElementById("resetNo").addEventListener("click", function () { confirmReset = false; renderSettings(); });
     } else {
-      footerHost.innerHTML = '<button class="tc-reset" type="button" id="resetBtn">' + svg("reset", 14) + ' Nullstill utfordring</button>';
-      document.getElementById("resetBtn").addEventListener("click", function () { confirmReset = true; renderFooter(); });
+      document.getElementById("resetBtn").addEventListener("click", function () { confirmReset = true; renderSettings(); });
     }
   }
 
-  function toggle(day, exKey) {
-    var prevCurrent = currentDay();
-    var cur = state.days[day] || EMPTY;
-    var wasComplete = dayDone(cur);
-    var updated = { pushups: cur.pushups, situps: cur.situps, squats: cur.squats };
-    updated[exKey] = !updated[exKey];
-    state.days[day] = updated;
-    save();
-    var willComplete = dayDone(updated);
-    if (willComplete && !wasComplete && day === prevCurrent) {
-      celebrate = { day: day, ex: exKey };
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(function () {
-        celebrate = null;
-        renderActive(); renderStats(); renderHistory();
-      }, 2200);
-    }
-    renderActive(); renderStats(); renderHistory();
-  }
+  function renderAll() { renderActive(); renderStats(); renderHistory(); updateBadge(); if (settingsOpen) renderSettings(); }
 
-  function undo() {
-    if (!celebrate) return;
-    var day = celebrate.day, ex = celebrate.ex;
-    var cur = state.days[day] || EMPTY;
-    var updated = { pushups: cur.pushups, situps: cur.situps, squats: cur.squats };
-    updated[ex] = false;
-    state.days[day] = updated;
-    save();
-    if (timer) clearTimeout(timer);
-    celebrate = null;
-    renderActive(); renderStats(); renderHistory();
-  }
-
-  function resetAll() {
-    state = { days: {} };
-    save();
-    confirmReset = false;
-    celebrate = null;
-    if (timer) clearTimeout(timer);
-    renderActive(); renderStats(); renderHistory(); renderFooter();
-  }
-
+  renderHeader();
   renderActive();
   renderStats();
   renderHistory();
-  renderFooter();
+  updateBadge();
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
